@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Règlement Officiel du Serveur</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root{
+  --parchment:#e8d9b5;
+  --parchment-dark:#d8c298;
+  --ink:#2b1d10;
+  --ink-soft:#4a3524;
+  --wax-red:#7a1f1f;
+  --forge-gold:#b8860b;
+  --hammer-blue:#2c4a5e;
+  --tongs-crimson:#7a1f1f;
+  --leather:#3c2a1a;
+  --border-gold:#8a6d3b;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse at top, rgba(0,0,0,0.15), transparent 60%),
+    linear-gradient(160deg, #3c2a1a, #1f150c 70%);
+  font-family:'EB Garamond', serif;
+  color:var(--ink);
+  padding:40px 16px 80px;
+}
+
+.scroll{
+  max-width:900px;
+  margin:0 auto;
+  background:
+    repeating-linear-gradient(0deg, rgba(120,90,50,0.05) 0px, rgba(120,90,50,0.05) 2px, transparent 2px, transparent 4px),
+    radial-gradient(ellipse at 20% 10%, rgba(255,240,200,0.4), transparent 50%),
+    var(--parchment);
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px var(--leather), 0 0 0 10px #2b1d10, 0 25px 60px rgba(0,0,0,0.6);
+  position:relative;
+  padding: 0;
+  overflow:hidden;
+}
+
+.scroll::before, .scroll::after{
+  content:"";
+  display:block;
+  height:22px;
+  background: linear-gradient(180deg, #6b4a26, #3c2a1a);
+}
+
+.header{
+  text-align:center;
+  padding:44px 30px 30px;
+  border-bottom:3px double var(--border-gold);
+  position:relative;
+  background: radial-gradient(ellipse at center top, rgba(184,134,11,0.12), transparent 70%);
+}
+
+.crest{
+  font-size:2.6rem;
+  margin-bottom:6px;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+}
+
+h1{
+  font-family:'Cinzel Decorative', serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: var(--wax-red);
+  margin: 6px 0 4px;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.3), 2px 2px 3px rgba(0,0,0,0.25);
+}
+
+.subtitle{
+  font-family:'Cinzel', serif;
+  font-size:0.95rem;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  opacity:0.85;
+}
+
+.intro{
+  max-width:640px;
+  margin:16px auto 0;
+  font-style:italic;
+  font-size:1.05rem;
+  line-height:1.6;
+  color:var(--ink-soft);
+}
+
+nav.toc{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  padding:22px 30px;
+  background: rgba(0,0,0,0.04);
+  border-bottom:1px solid var(--border-gold);
+}
+nav.toc a{
+  font-family:'Cinzel', serif;
+  font-size:0.78rem;
+  letter-spacing:0.5px;
+  text-decoration:none;
+  color:var(--ink);
+  background: rgba(184,134,11,0.15);
+  border:1px solid var(--border-gold);
+  padding:6px 12px;
+  border-radius:3px;
+  transition: all 0.2s;
+}
+nav.toc a:hover{ background: var(--forge-gold); color:#fff8e7; }
+
+.content{ padding: 10px 40px 50px; }
+
+section.chapter{
+  margin-top:44px;
+  padding-top:6px;
+  scroll-margin-top: 20px;
+}
+
+.chapter-head{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:18px;
+}
+
+.chapter-num{
+  font-family:'Cinzel Decorative', serif;
+  font-size:1.8rem;
+  color: var(--parchment);
+  background: var(--wax-red);
+  border: 2px solid var(--forge-gold);
+  width:52px;height:52px;
+  min-width:52px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.35), inset 0 0 0 2px rgba(255,255,255,0.15);
+}
+
+h2{
+  font-family:'Cinzel', serif;
+  font-size:1.4rem;
+  color:var(--ink);
+  margin:0;
+  letter-spacing:1px;
+  border-bottom: 2px solid var(--border-gold);
+  padding-bottom:6px;
+  flex:1;
+}
+
+h3{
+  font-family:'Cinzel', serif;
+  font-size:1.05rem;
+  color:var(--wax-red);
+  margin: 22px 0 8px;
+  letter-spacing:0.5px;
+}
+
+p, li{ line-height:1.65; font-size:1.02rem; }
+
+.lede{ color:var(--ink-soft); margin-bottom: 18px; }
+
+/* Region cards for chapter I */
+.regions{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+  gap:16px;
+  margin: 18px 0;
+}
+.region-card{
+  border:2px solid var(--border-gold);
+  border-radius:6px;
+  padding:16px 18px;
+  background: rgba(255,255,255,0.25);
+  position:relative;
+}
+.region-card.neutral{ border-color:#6b8e6b; background: rgba(107,142,107,0.12); }
+.region-card.hammer{ border-color:var(--hammer-blue); background: rgba(44,74,94,0.1); }
+.region-card.tongs{ border-color:var(--tongs-crimson); background: rgba(122,31,31,0.08); }
+
+.region-title{
+  font-family:'Cinzel', serif;
+  font-weight:700;
+  font-size:1rem;
+  margin-bottom:6px;
+  display:flex; align-items:center; gap:6px;
+}
+.badge{
+  display:inline-block;
+  font-family:'Cinzel', serif;
+  font-size:0.68rem;
+  letter-spacing:0.5px;
+  padding:2px 8px;
+  border-radius:10px;
+  margin-top:8px;
+  color:#fff8e7;
+}
+.badge.peace{ background:#4a6b4a; }
+.badge.war{ background:var(--wax-red); }
+
+/* callouts */
+.callout{
+  border-left:4px solid var(--wax-red);
+  background: rgba(122,31,31,0.06);
+  padding:14px 18px;
+  margin:16px 0;
+  border-radius:0 4px 4px 0;
+}
+.callout.gold{ border-left-color: var(--forge-gold); background: rgba(184,134,11,0.08); }
+.callout.blue{ border-left-color: var(--hammer-blue); background: rgba(44,74,94,0.06); }
+.callout-title{
+  font-family:'Cinzel', serif;
+  font-weight:700;
+  font-size:0.85rem;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--wax-red);
+  margin-bottom:4px;
+}
+.callout.gold .callout-title{ color:var(--forge-gold); }
+.callout.blue .callout-title{ color:var(--hammer-blue); }
+
+ul.rules{ list-style:none; padding-left:0; }
+ul.rules li{
+  position:relative;
+  padding-left:28px;
+  margin-bottom:10px;
+}
+ul.rules li::before{
+  content:"⚔";
+  position:absolute;
+  left:0;
+  color:var(--wax-red);
+  font-size:0.9rem;
+}
+
+/* dice mechanic diagram */
+.dice-wrap{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  margin:20px 0;
+  align-items:stretch;
+}
+.dice-box{
+  flex:1;
+  min-width:240px;
+  border:2px dashed var(--border-gold);
+  border-radius:8px;
+  padding:18px;
+  background: rgba(255,255,255,0.3);
+}
+.dice-box h4{
+  font-family:'Cinzel', serif;
+  margin:0 0 8px;
+  font-size:0.95rem;
+  display:flex;align-items:center;gap:8px;
+}
+.die{
+  display:inline-flex;
+  width:26px;height:26px;
+  background:var(--ink);
+  color:var(--parchment);
+  border-radius:5px;
+  align-items:center;justify-content:center;
+  font-size:0.8rem;
+  font-weight:bold;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+}
+
+/* trial section timeline */
+.trial-steps{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  margin:20px 0;
+  border-left:3px solid var(--forge-gold);
+  padding-left:24px;
+}
+.trial-step{ position:relative; padding-bottom:18px;}
+.trial-step::before{
+  content:"";
+  position:absolute;
+  left:-30px;
+  top:4px;
+  width:12px;height:12px;
+  background:var(--wax-red);
+  border-radius:50%;
+  border:2px solid var(--parchment);
+  box-shadow:0 0 0 2px var(--forge-gold);
+}
+
+.divider{
+  text-align:center;
+  color:var(--forge-gold);
+  font-size:1.2rem;
+  letter-spacing:12px;
+  margin:34px 0 10px;
+  opacity:0.6;
+}
+
+.footer{
+  text-align:center;
+  padding:34px 20px 44px;
+  font-family:'Cinzel', serif;
+  font-size:0.85rem;
+  letter-spacing:2px;
+  color:var(--ink-soft);
+  border-top:2px double var(--border-gold);
+  background: rgba(0,0,0,0.03);
+}
+
+strong{ color:var(--wax-red); }
+
+@media (max-width:600px){
+  .content{ padding:10px 20px 40px; }
+  h1{ letter-spacing:1px; }
+}
+</style>
+</head>
+<body>
+<div class="scroll">
+
+  <div class="header">
+    <div class="crest">⚜️🗡️⚜️</div>
+    <h1>Règlement Officiel du Serveur</h1>
+    <div class="subtitle">Sleeper's Lands — Geopolitique &amp; Loi du Territoire</div>
+    <p class="intro">Ce serveur propose une expérience semi‑RP basée sur la géopolitique, le monopole économique régional, l'art de la contrebande et le contrôle territorial. En vous connectant, vous vous engagez à respecter les lois de ce monde.</p>
+  </div>
+
+  <nav class="toc">
+    <a href="#ch1">I. Géopolitique</a>
+    <a href="#ch2">II. Économie</a>
+    <a href="#ch3">III. Lois de guerre</a>
+    <a href="#ch4">IV. Statut neutre</a>
+    <a href="#ch5">V. Arrestation</a>
+    <a href="#ch6">VI. Procès RP</a>
+    <a href="#ch7">VII. Allégeance</a>
+  </nav>
+
+  <div class="content">
+
+    <section class="chapter" id="ch1">
+      <div class="chapter-head">
+        <div class="chapter-num">I</div>
+        <h2>Géopolitique et Régions</h2>
+      </div>
+      <p class="lede">La carte est divisée en trois grandes bandes verticales distinctes. Votre lieu de résidence détermine votre faction et vos droits.</p>
+
+      <div class="regions">
+        <div class="region-card neutral">
+          <div class="region-title">🕊️ Forge du Dormeur</div>
+          <p style="margin:4px 0;font-size:0.9rem;"><em>Région centrale — Zone Neutre</em></p>
+          <p style="font-size:0.92rem;margin:8px 0;">Zone de paix, d'artisanat et de commerce mondial. Refuge des joueurs pacifiques et poumon économique du serveur.</p>
+          <span class="badge peace">PvP strictement interdit</span>
+        </div>
+        <div class="region-card hammer">
+          <div class="region-title">⚒️ Marteau du Dormeur</div>
+          <p style="margin:4px 0;font-size:0.9rem;"><em>Bande ouest — Zone PvP - Carré rouge sur Live Map</em></p>
+          <p style="font-size:0.92rem;margin:8px 0;">Zone de guerre ouverte et de conquête territoriale, où la force militaire fait la loi.</p>
+          <span class="badge war">PvP actif sans préavis</span>
+        </div>
+        <div class="region-card tongs">
+          <div class="region-title">🔥 Pince du Dormeur</div>
+          <p style="margin:4px 0;font-size:0.9rem;"><em>Bande est — Zone PvP - Carré rouge sur Live Map</em></p>
+          <p style="font-size:0.92rem;margin:8px 0;">Guerre permanente contre Sleeper's Hammer. Haute tension territoriale.</p>
+          <span class="badge war">PvP actif sans préavis</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider">❖ ❖ ❖</div>
+
+    <section class="chapter" id="ch2">
+      <div class="chapter-head">
+        <div class="chapter-num">II</div>
+        <h2>Économie &amp; Récolte</h2>
+      </div>
+      <p class="lede">La récolte est libre partout, mais le transport des ressources nommées est strictement encadré. La contrebande est un choix de gameplay officiel et autorisé — mais elle comporte de grands risques.</p>
+
+      <ul class="rules">
+        <li><strong>Monopole régional :</strong> les ressources Marteau appartiennent à l'Ouest, les Forge au Centre, et les Pinces à l'Est.</li>
+        <li><strong>Loi du Commerce :</strong> une ressource nommée doit obligatoirement être vendue dans le Trade Post de sa région d'origine — interdiction de la déplacer pour la stocker ou la revendre ailleurs.</li>
+      </ul>
+
+      <div class="callout gold">
+        <div class="callout-title">L'exception unique — la construction spécifique</div>
+        <p style="margin:0;">Le transport hors zone est autorisé uniquement pour fabriquer ou améliorer un bâtiment nommé exigeant ce matériau précis. Pour que cette exception soit valable, <strong>le plan du bâtiment (blueprint) doit obligatoirement être déjà posé au sol</strong> sur le lieu du chantier.</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Le bénéfice du doute &amp; contrôle</div>
+        <p style="margin:0;">Si un contrebandier affirme que les ressources sont destinées à un chantier mais que les soldats ne peuvent pas le vérifier immédiatement, le doute ne l'innocente pas d'office. Le Juge ou le Seigneur local ordonnera une procédure de contrôle du village du joueur : la Garde Royale se déplacera physiquement pour inspecter ses propriétés et vérifier l'existence réelle du chantier. Si aucun plan n'est posé au sol, le suspect est déclaré <strong>coupable de mensonge sous serment</strong> et sa sentence sera lourdement aggravée.</p>
+      </div>
+
+      <p><strong>Contrebande interdite :</strong> le stockage préventif en zone neutre sans projet de construction immédiat et vérifiable reste illégal.</p>
+    </section>
+
+    <div class="divider">❖ ❖ ❖</div>
+
+    <section class="chapter" id="ch3">
+      <div class="chapter-head">
+        <div class="chapter-num">III</div>
+        <h2>Lois de Guerre (Sociétés PvP)</h2>
+      </div>
+      <ul class="rules">
+        <li><strong>Kill à vue :</strong> autorisé et encouragé sans préavis entre les résidents de Sleeper's Hammer et de Sleeper's Tongs.</li>
+        <li><strong>Loi du sang :</strong> aucun dialogue RP ou jet de dés n'est requis entre deux soldats ennemis en zone rouge.</li>
+        <li><strong>Pillage :</strong> vol de l'intégralité de l'équipement et des ressources autorisé après un kill valide.</li>
+        <li><strong>Fair‑play :</strong> interdiction stricte de tuer en boucle un joueur à son point d'apparition (spawnkill).</li>
+      </ul>
+    </section>
+
+    <div class="divider">❖ ❖ ❖</div>
+
+    <section class="chapter" id="ch4">
+      <div class="chapter-head">
+        <div class="chapter-num">IV</div>
+        <h2>Statut du Joueur Neutre &amp; Fouilles</h2>
+      </div>
+      <p class="lede">Les habitants de la zone neutre (Sleeper's Forge) bénéficient d'un statut civil qui les protège du meurtre gratuit, mais les soumet aux lois douanières.</p>
+      <ul class="rules">
+        <li><strong>Pouvoir GM :</strong> l'équipe des GMs se réserve le droit de procéder à des fouilles surprises de villageois, en RP, sous l'identité de Gardes Royaux.</li>
+        <li><strong>Fouille des entrepôts :</strong> obligatoirement effectuée via un GM.</li>
+        <li><strong>Droit des factions :</strong> les soldats PvP peuvent intercepter et fouiller les neutres qui traversent leur territoire.</li>
+        <li><strong>Sommation :</strong> les autorités doivent ordonner l'arrêt du joueur — le PvP sauvage sur un neutre sans sommation est interdit.</li>
+        <li><strong>Charge de la preuve :</strong> en cas de contrôle, le neutre doit prouver sa bonne foi (plan de craft, projet écrit ou voyage vers le Trade Post).</li>
+      </ul>
+    </section>
+
+    <div class="divider">❖ ❖ ❖</div>
+
+    <section class="chapter" id="ch5">
+      <div class="chapter-head">
+        <div class="chapter-num">V</div>
+        <h2>Arrestation des Neutres — Mécanique des Dés</h2>
+      </div>
+      <p class="lede">Il est strictement interdit d'exécuter ou de tuer à vue un joueur neutre. Si un neutre est pris en infraction ou refuse de coopérer, l'action physique se tranche par un jet de dés (<code>/roll 100</code>) opposant le joueur neutre à l'autorité.</p>
+
+      <div class="dice-wrap">
+        <div class="dice-box">
+          <h4><span class="die">✓</span> Cas 1 — Le neutre gagne</h4>
+          <p style="margin:0;font-size:0.95rem;">Le neutre prend le dessus physiquement. Il est autorisé à s'enfuir en courant ou à attaquer pour assommer (KO) ses interlocuteurs. S'il franchit la frontière de la Zone Neutre, il est <strong>définitivement à l'abri</strong>.</p>
+        </div>
+        <div class="dice-box">
+          <h4><span class="die">✕</span> Cas 2 — L'autorité gagne</h4>
+          <p style="margin:0;font-size:0.95rem;">Le neutre est instantanément maîtrisé. Interdiction stricte de fuir ou de se débattre. Les sacs sont vidés de la contrebande et le joueur est escorté pacifiquement aux geôles.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider">❖ ❖ ❖</div>
+
+    <section class="chapter" id="ch6">
+      <div class="chapter-head">
+        <div class="chapter-num">VI</div>
+        <h2>Le Procès RP</h2>
+      </div>
+      <p class="lede">Une fois le contrebandier neutre sous les verrous, la faction ou le GM dispose de <strong>48 heures maximum</strong> pour organiser le procès RP devant le Juge ou le Seigneur local. L'accusé peut faire appel à un avocat neutre.</p>
+
+      <h3>Sentences possibles <em style="color:var(--ink-soft);font-weight:400;">(l'exécution reste strictement interdite)</em></h3>
+      <div class="trial-steps">
+        <div class="trial-step"><strong>Saisie définitive</strong> de la contrebande et des outils de récolte.</div>
+        <div class="trial-step"><strong>Amende financière</strong> payable au trésor de la faction.</div>
+        <div class="trial-step"><strong>Travaux forcés</strong> d'intérêt général pour la communauté, sous surveillance.</div>
+        <div class="trial-step"><strong>Bannissement territorial</strong> de la région PvP pour une durée définie.</div>
+      </div>
+    </section>
+
+    <div class="divider">❖ ❖ ❖</div>
+
+    <section class="chapter" id="ch7">
+      <div class="chapter-head">
+        <div class="chapter-num">VII</div>
+        <h2>Allégeance en Événement (Neutre Rallié)</h2>
+      </div>
+      <p class="lede">Les joueurs pacifiques installés en périphérie des zones de guerre peuvent affirmer leur appartenance au royaume local via Discord pour participer aux événements officiels (sièges, batailles).</p>
+      <ul class="rules">
+        <li><strong>Sûreté :</strong> le joueur rallié reste soumis à 100 % au règlement protecteur des joueurs neutres.</li>
+        <li><strong>Pas d'exécution :</strong> même au cœur de la bataille, un neutre rallié ne peut pas être achevé ou exécuté au sol.</li>
+        <li><strong>Capture obligatoire :</strong> s'il est mis KO ou encerclé, les combattants ennemis doivent stopper leurs coups.</li>
+        <li><strong>Bascule aux règles neutres :</strong> l'action s'arrête et la mécanique du jet de dés (<code>/roll 100</code>) s'applique immédiatement. En cas de défaite, le joueur est conduit vivant en prison pour son procès.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="footer">
+    ⚜ Fait respecter par la Couronne et les Gardes Royaux ⚜<br>
+    Que la loi du territoire soit gravée dans la pierre.
+  </div>
+
+</div>
+</body>
+</html>
